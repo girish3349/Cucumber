@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -12,7 +13,7 @@ import io.cucumber.java.en.When;
 public class EBayHomePage {
 
 	private WebDriver driver;
-	
+
 	public EBayHomePage(CommonSteps commonsteps) {
 		this.driver = commonsteps.getWebDriver();
 	}
@@ -39,22 +40,34 @@ public class EBayHomePage {
 		}
 	}
 
-	@When("I Search for Iphone 13")
-	public void i_search_for_iphone() {
-		
-		driver.findElement(By.id("gh-ac")).sendKeys("Iphone 11");
+	@When("I Search for {string}")
+	public void i_search_for_iphone(String item) {
+
+		driver.findElement(By.id("gh-ac")).sendKeys(item);
 		driver.findElement(By.id("gh-btn")).click();
-		
+
 	}
 
-	@Then("Verify atlease 1000 items are present")
-	public void verify_atlease_items_are_present() {
-		
+	@Then("Verify atlease {int} items are present")
+	public void verify_atlease_items_are_present(int count) {
 		String str = driver.findElement(By.xpath("//h1/span")).getText();
 		String str2 = str.replace(",", "");
 		int itemCount = Integer.parseInt(str2);
-		if (itemCount < 1000) {
+		if (itemCount < count) {
 			fail("Item count is lessthen 1000");
+		}
+	}
+
+	@When("I Search for {string} in {string} category")
+	public void i_search_for_in_category(String item, String string2) {
+		driver.findElement(By.id("gh-ac")).sendKeys(item);
+		new Select(driver.findElement(By.name("_sacat"))).selectByVisibleText(string2);
+		driver.findElement(By.id("gh-btn")).click();
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

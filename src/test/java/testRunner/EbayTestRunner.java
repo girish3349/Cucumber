@@ -16,7 +16,7 @@ import io.cucumber.junit.CucumberOptions;
 		dryRun = false, // 
 		monochrome = true // When monochrome value set to true, 
 		//It will make console output for the Cucumber test much more readable and remove any unreadable character
-		//tags = "@P2" // Run all the Scenarios which are associated with given tag names 
+		//tags = "@P44" // Run all the Scenarios which are associated with given tag names 
 		//name = {"Logo"} // Runs all the scenarios, which has "Logo" word matching in Scenario names
 		)
 public class EbayTestRunner {
