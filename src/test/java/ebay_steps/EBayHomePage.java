@@ -71,4 +71,33 @@ public class EBayHomePage {
 		}
 	}
 
+	@When("I clikc on {string}")
+	public void i_clikc_on(String string) {		
+		driver.findElement(By.linkText(string)).click();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Then("I Validate that page nagivates to {string} and title contains {string}")
+	public void i_validate_that_page_nagivates_to_and_title_contains(String string, String string2) {
+		
+		String actUrl = driver.getCurrentUrl();
+		String actTitle = driver.getTitle();
+		
+		String expUrl = driver.getCurrentUrl();
+		String expTitle = driver.getTitle();
+		
+		if (!actUrl.equals(expUrl)) {
+			fail("Actual URL is not matching with the expected URL.");
+		}
+		
+		if (!actTitle.contains(expTitle)) {
+			fail("Actual Title is not matching with the expected Title.");
+		}
+	   
+	}
 }
