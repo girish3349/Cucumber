@@ -7,20 +7,18 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 
 public class CommonSteps {
-	
+
 	WebDriver driver;
-	
-	@Before
+
+	@Before(order =1)
 	public void setUp() {
 		System.setProperty("webdriver.chrome.driver", "browserDriver/chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.get("https://www.ebay.com/");
 		System.out.println("###### BROWSER OPENED #######");
 	}
-	
 
-	
-	@After
+	@After(order = -2)
 	public void tearDown() {
 		System.out.println("###### BROWSER CLOSED #######");
 		driver.quit();
@@ -32,19 +30,8 @@ public class CommonSteps {
 		}
 	}
 
-	@After("@Test")
-	public void testAfterHook() {
-		System.out.println("@@@@@@@@@@@@ Inside Test After Hook @@@@@@@@@@@@@@");
-	}
-	
 	public WebDriver getWebDriver() {
 		return driver;
 	}
-	
-	@Before ("@setCookies")
-	public void setCookies() {
-		System.out.println("@@@@@@@@@@@@ Inside block set cookies @@@@@@@@@@@@@@");
-	}
-	
 
 }
